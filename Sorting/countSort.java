@@ -19,6 +19,7 @@ public class countSort {
         }
         return max;
     }
+    //count sort using hash map
     public static void sortUsingHashMap(int[] nums){
         Map<Integer,Integer> countMap=new HashMap<>();
         int max=getMax(nums);
@@ -58,7 +59,7 @@ public class countSort {
                ans[i]--;
             }
         }
-        
+          
     }
     
     public static void main(String[] args) {
