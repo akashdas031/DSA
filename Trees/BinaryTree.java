@@ -7,6 +7,7 @@ public class BinaryTree { // Public class declaration for BinaryTree
         private TreeNode left; // Left child node
         private TreeNode right; // Right child node
         private int value; // Value of the current node
+        @SuppressWarnings("unused")
         public TreeNode(){ // No-argument constructor for TreeNode
         }
         public TreeNode(int value){ // Parameterized constructor for TreeNode
