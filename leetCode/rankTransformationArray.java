@@ -37,13 +37,13 @@ public class rankTransformationArray {
     public int[] arrayRankTransform(int[] arr) {
         PriorityQueue<Integer> minHeap=new PriorityQueue<>();
         for(int num:arr){
-          minHeap.offer(num);
+          minHeap.insert(num);
         }
         int[] res=new int[arr.length];
         Map<Integer,Integer> mp=new HashMap<>();
         int rank=1;
         while(!minHeap.isEmpty()){
-            int min=minHeap.poll();
+            int min=minHeap.remove();
             if(!mp.containsKey(min)){
                 mp.put(min,rank);
                 rank++;
