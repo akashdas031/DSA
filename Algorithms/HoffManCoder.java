@@ -1,5 +1,10 @@
 package DSA.Algorithms;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -109,6 +114,43 @@ public class HoffManCoder {
         }
       }
       return ans;
+    }
+    // Read the contents of a file into a string
+    public String readFile(String filePath) throws IOException {
+        StringBuilder contentBuilder = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                contentBuilder.append(line).append("\n");
+            }
+        }
+        return contentBuilder.toString().trim(); // Remove trailing newline
+    }
+
+    // Write encoded data to a binary file
+    public void writeEncodedToFile(String encodedData, String outputPath) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath))) {
+            writer.write(encodedData);
+        }
+    }
+
+    // Read encoded data from a file
+    public String readEncodedFromFile(String inputPath) throws IOException {
+        StringBuilder encodedData = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(inputPath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                encodedData.append(line);
+            }
+        }
+        return encodedData.toString();
+    }
+
+    // Write the decoded data to a file
+    public void writeDecodedToFile(String decodedData, String outputPath) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath))) {
+            writer.write(decodedData);
+        }
     }
     
 }
