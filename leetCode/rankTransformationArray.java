@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import DSA.CustomDataStructures.MinHeap;
 import DSA.CustomDataStructures.PriorityQueue;
 /**
  * rankTransformationArray
@@ -34,8 +35,8 @@ public class rankTransformationArray {
         }
         return res;
     }
-    public int[] arrayRankTransform(int[] arr) {
-        PriorityQueue<Integer> minHeap=new PriorityQueue<>();
+    public int[] arrayRankTransform(int[] arr) throws Exception {
+        MinHeap<Integer> minHeap=new MinHeap<>();
         for(int num:arr){
           minHeap.insert(num);
         }

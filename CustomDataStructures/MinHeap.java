@@ -70,6 +70,12 @@ public class MinHeap <T extends Comparable<T>> {
         }
 
     }
+    public boolean isEmpty(){
+        return data.isEmpty();
+    }
+    public int size(){
+        return data.size();
+    }
     //heap sort ascending order
     public List<T> heapSort() throws Exception{
         List<T> sorted=new ArrayList<>();
