@@ -1,2 +1,0 @@
-hello huffman coding
-this is an example of huffman coding

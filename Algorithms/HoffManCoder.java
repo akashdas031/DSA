@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -90,6 +91,48 @@ public class HoffManCoder {
       initEncoderDecoder(node.left, osf+"0");
       initEncoderDecoder(node.right, osf+"1");
     }
+    //encode bit set
+    public BitSet encodeBitset(String source) {
+    BitSet bitSet = new BitSet();
+    int bitIndex = 0;
+
+    for (int i = 0; i < source.length(); i++) {
+        String code = encoder.get(source.charAt(i));
+        for (char c : code.toCharArray()) {
+            if (c == '1') {
+                bitSet.set(bitIndex);
+            }
+            bitIndex++;
+        }
+    }
+    
+    return bitSet;
+}
+//decode using bitset
+public String decodeBitset(BitSet bitSet, int length) {
+    StringBuilder key = new StringBuilder();
+    StringBuilder ans = new StringBuilder();
+    int currentIndex = 0; // Track the current bit index
+
+    while (currentIndex < bitSet.length()) {
+        // Append the current bit to the key
+        if (bitSet.get(currentIndex)) {
+            key.append('1');
+        } else {
+            key.append('0');
+        }
+
+        // Check if the key is in the decoder
+        if (decoder.containsKey(key.toString())) {
+            ans.append(decoder.get(key.toString()));
+            key.setLength(0); // Clear the key for the next use
+        }
+        currentIndex++;
+    }
+
+    return ans.toString();
+}
+
   
     public String encode(String source) {
       String ans = "";
