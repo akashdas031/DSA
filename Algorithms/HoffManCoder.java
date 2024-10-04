@@ -17,142 +17,145 @@ import DSA.CustomDataStructures.MinHeap;
  */
 public class HoffManCoder {
 
+    // Maps characters to their corresponding Huffman codes
     HashMap<Character, String> encoder;
+    // Maps Huffman codes to their corresponding characters
     HashMap<String, Character> decoder;
-  
+
     private class Node implements Comparable<Node> {
-      Character data;
-      int cost; // frequency
-      Node left;
-      Node right;
-  
-      public Node(Character data, int cost) {
-        this.data = data;
-        this.cost = cost;
-        this.left = null;
-        this.right = null;
-      }
-  
-      @Override
-      public int compareTo(Node other) {
-        return this.cost - other.cost;
-      }
-    }
-  
-    public HoffManCoder(String feeder) throws Exception {
-      HashMap<Character, Integer> fmap = new HashMap<>();
-  
-      for(int i=0; i < feeder.length(); i++) {
-        char cc = feeder.charAt(i);
-        if(fmap.containsKey(cc)) {
-          int ov = fmap.get(cc);
-          ov += 1;
-          fmap.put(cc, ov);
-        } else {
-          fmap.put(cc, 1);
+        Character data;
+        int frequency;
+        Node left;
+        Node right;
+
+        public Node(Character data, int frequency) {
+            this.data = data;
+            this.frequency = frequency;
+            this.left = null;
+            this.right = null;
         }
-      }
-  
-      MinHeap<Node> minHeap = new MinHeap<>();
-      Set<Map.Entry<Character, Integer>> entrySet = fmap.entrySet();
-  
-      for(Map.Entry<Character, Integer> entry : entrySet) {
-        Node node = new Node(entry.getKey(), entry.getValue());
-        minHeap.insert(node);
-      }
-  
-      while(minHeap.size() != 1) {
-        Node first = minHeap.remove();
-        Node second = minHeap.remove();
-  
-        Node newNode = new Node('\0', first.cost + second.cost);
-        newNode.left = first;
-        newNode.right = second;
-  
-        minHeap.insert(newNode);
-      }
-  
-      Node ft = minHeap.remove();
-  
-      this.encoder = new HashMap<>();
-      this.decoder = new HashMap<>();
-  
-      this.initEncoderDecoder(ft, "");
+
+        @Override
+        public int compareTo(Node other) {
+            return this.frequency - other.frequency;
+        }
     }
-  
+
+    public HoffManCoder(String inputString) throws Exception {
+        // Create a frequency map for each character in the input string
+        HashMap<Character, Integer> freqMap = new HashMap<>();
+        for (int i = 0; i < inputString.length(); i++) {
+            char character = inputString.charAt(i);
+            freqMap.put(character, freqMap.getOrDefault(character, 0) + 1);
+        }
+        System.out.println("Frequency Map: " + freqMap);
+
+        // Create a min heap to store nodes
+        MinHeap<Node> minHeap = new MinHeap<>();
+        Set<Map.Entry<Character, Integer>> entrySet = freqMap.entrySet();
+
+        // Insert nodes into the min heap
+        for (Map.Entry<Character, Integer> entry : entrySet) {
+            Node node = new Node(entry.getKey(), entry.getValue());
+            minHeap.insert(node);
+        }
+
+        // Merge nodes in the min heap until only one node is left
+        while (minHeap.size() != 1) {
+            Node first = minHeap.remove();
+            Node second = minHeap.remove();
+
+            // Create a new node with the combined frequency
+            Node newNode = new Node('\0', first.frequency + second.frequency);
+            newNode.left = first;
+            newNode.right = second;
+
+            minHeap.insert(newNode);
+        }
+
+        // Initialize the encoder and decoder maps
+        Node ft = minHeap.remove();
+        this.encoder = new HashMap<>();
+        this.decoder = new HashMap<>();
+
+        // Initialize the encoder and decoder maps recursively
+        this.initEncoderDecoder(ft, "");
+    }
+
     private void initEncoderDecoder(Node node, String osf) {
-      if(node == null) {
-        return;
-      }
-      if(node.left == null && node.right == null) {
-        this.encoder.put(node.data, osf);
-        this.decoder.put(osf, node.data);
-      }
-      initEncoderDecoder(node.left, osf+"0");
-      initEncoderDecoder(node.right, osf+"1");
+        if (node == null) {
+            return;
+        }
+        if (node.left == null && node.right == null) {
+            // Map the character to its Huffman code
+            this.encoder.put(node.data, osf);
+            this.decoder.put(osf, node.data);
+        }
+        initEncoderDecoder(node.left, osf + "0");
+        initEncoderDecoder(node.right, osf + "1");
     }
-    //encode bit set
+
+    // Encode a string into a BitSet
     public BitSet encodeBitset(String source) {
-    BitSet bitSet = new BitSet();
-    int bitIndex = 0;
+        BitSet bitSet = new BitSet();
+        int bitIndex = 0;
 
-    for (int i = 0; i < source.length(); i++) {
-        String code = encoder.get(source.charAt(i));
-        for (char c : code.toCharArray()) {
-            if (c == '1') {
-                bitSet.set(bitIndex);
+        for (int i = 0; i < source.length(); i++) {
+            String code = encoder.get(source.charAt(i));
+            for (char c : code.toCharArray()) {
+                if (c == '1') {
+                    bitSet.set(bitIndex);
+                }
+                bitIndex++;
             }
-            bitIndex++;
-        }
-    }
-    
-    return bitSet;
-}
-//decode using bitset
-public String decodeBitset(BitSet bitSet, int length) {
-    StringBuilder key = new StringBuilder();
-    StringBuilder ans = new StringBuilder();
-    int currentIndex = 0; // Track the current bit index
-
-    while (currentIndex < bitSet.length()) {
-        // Append the current bit to the key
-        if (bitSet.get(currentIndex)) {
-            key.append('1');
-        } else {
-            key.append('0');
         }
 
-        // Check if the key is in the decoder
-        if (decoder.containsKey(key.toString())) {
-            ans.append(decoder.get(key.toString()));
-            key.setLength(0); // Clear the key for the next use
-        }
-        currentIndex++;
+        return bitSet;
     }
 
-    return ans.toString();
-}
+    // Decode a BitSet into a string
+    public String decodeBitset(BitSet bitSet, int length) {
+        StringBuilder key = new StringBuilder();
+        StringBuilder ans = new StringBuilder();
+        int currentIndex = 0; // Track the current bit index
 
-  
+        while (currentIndex < bitSet.length()) {
+            // Append the current bit to the key
+            if (bitSet.get(currentIndex)) {
+                key.append('1');
+            } else {
+                key.append('0');
+            }
+
+            // Check if the key is in the decoder
+            if (decoder.containsKey(key.toString())) {
+                ans.append(decoder.get(key.toString()));
+                key.setLength(0); // Clear the key for the next use
+            }
+            currentIndex++;
+        }
+
+        return ans.toString();
+    }
+
+    // Encode a string into a Huffman code
     public String encode(String source) {
-      String ans = "";
-  
-      // Bitset can be used: like an array but with a bit at each index
-  
-      for(int i=0; i<source.length(); i++) {
-        ans = ans + encoder.get(source.charAt(i));
-      }
-      
-      return ans;
+        String ans = "";
+        for (int i = 0; i < source.length(); i++) {
+            ans = ans + encoder.get(source.charAt(i));
+        }
+
+        return ans;
     }
-  
+
+    // Decode a Huffman code into a string
     public String decode(String codedString) {
-      String key = "";
-      String ans = "";
-      for(int i=0; i<codedString.length(); i++) {
-        key = key + codedString.charAt(i);
-        if(decoder.containsKey(key)) {
-          ans = ans + decoder.get(key);
+        String key = "";
+        String ans = "";
+        for (int i = 0; i < codedString.length(); i++) {
+            key = key + codedString.charAt(i);
+            if (decoder.containsKey(key)) {
+            ans = ans + decoder.get(key);
           key = "";
         }
       }
@@ -195,5 +198,6 @@ public String decodeBitset(BitSet bitSet, int length) {
             writer.write(decodedData);
         }
     }
+    
     
 }

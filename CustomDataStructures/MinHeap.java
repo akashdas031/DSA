@@ -84,6 +84,14 @@ public class MinHeap <T extends Comparable<T>> {
         }
         return sorted;
     }
-
+    //display the heap
+    public void display() {
+        if (data.isEmpty()) {
+            System.out.println("Heap is empty");
+            return;
+        }
+        System.out.println(data.toString());
+    }
+    
 
 }

@@ -4,11 +4,11 @@ import java.util.BitSet;
 
 public class HuffMan {
     public static void main(String[] args) throws Exception {
-        String str="abbccda";
+        String str="huffman";
         HoffManCoder huffman=new HoffManCoder(str);
-        BitSet enc= huffman.encodeBitset(str);
+        String enc= huffman.encode(str);
         System.out.println(enc);
-        String dec=huffman.decodeBitset(enc,str.length());
+        String dec=huffman.decode(enc);
         System.out.println(dec);
     }
 }
