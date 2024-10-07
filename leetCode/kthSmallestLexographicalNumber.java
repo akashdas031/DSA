@@ -1,6 +1,18 @@
 package DSA.leetCode;
 
+/**
+ * The {@code kthSmallestLexographicalNumber} class provides a method to find
+ * the k-th smallest number in lexicographical order from 1 to n.
+ */
 public class kthSmallestLexographicalNumber {
+
+    /**
+     * Finds the k-th smallest number in lexicographical order from 1 to n.
+     *
+     * @param n the upper limit of the range (inclusive)
+     * @param k the position of the number in the lexicographical order to find
+     * @return the k-th smallest number in lexicographical order
+     */
     public static int findKthNumber(int n, int k) {
         int current = 1; // Start from 1
         k--; // Decrement k because we are starting from the first number
@@ -21,6 +33,13 @@ public class kthSmallestLexographicalNumber {
         return current; // Return the k-th smallest number
     }
     
+    /**
+     * Counts how many numbers in the range [1, n] start with the given prefix.
+     *
+     * @param n     the upper limit of the range (inclusive)
+     * @param prefix the prefix to count numbers starting with
+     * @return the count of numbers starting with the given prefix
+     */
     private static int getCount(int n, int prefix) {
         long curr = prefix;
         long next = prefix + 1;
@@ -34,8 +53,13 @@ public class kthSmallestLexographicalNumber {
         
         return count;
     }
+    
+    /**
+     * The main method to test the functionality of finding the k-th smallest number.
+     *
+     * @param args command line arguments (not used)
+     */
     public static void main(String[] args) {
-        System.out.println(findKthNumber(13,4));
+        System.out.println(findKthNumber(13, 4));
     }
 }
-

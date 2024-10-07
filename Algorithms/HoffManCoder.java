@@ -13,7 +13,9 @@ import java.util.Set;
 import DSA.CustomDataStructures.MinHeap;
 
 /**
- * HoffManCoder
+ * The {@code HoffManCoder} class implements Huffman coding, a lossless data compression algorithm.
+ * It provides methods to encode and decode strings using Huffman codes, as well as to read from and
+ * write to files.
  */
 public class HoffManCoder {
 
@@ -22,12 +24,21 @@ public class HoffManCoder {
     // Maps Huffman codes to their corresponding characters
     HashMap<String, Character> decoder;
 
+    /**
+     * A private inner class representing a node in the Huffman tree.
+     */
     private class Node implements Comparable<Node> {
         Character data;
         int frequency;
         Node left;
         Node right;
 
+        /**
+         * Constructs a new {@code Node} with the specified character and frequency.
+         *
+         * @param data the character stored in this node
+         * @param frequency the frequency of the character
+         */
         public Node(Character data, int frequency) {
             this.data = data;
             this.frequency = frequency;
@@ -41,6 +52,13 @@ public class HoffManCoder {
         }
     }
 
+    /**
+     * Constructs a {@code HoffManCoder} instance and builds the Huffman tree based on the
+     * frequency of characters in the given input string.
+     *
+     * @param inputString the string to encode
+     * @throws Exception if an error occurs while building the Huffman tree
+     */
     public HoffManCoder(String inputString) throws Exception {
         // Create a frequency map for each character in the input string
         HashMap<Character, Integer> freqMap = new HashMap<>();
@@ -82,6 +100,12 @@ public class HoffManCoder {
         this.initEncoderDecoder(ft, "");
     }
 
+    /**
+     * Initializes the encoder and decoder maps recursively based on the Huffman tree.
+     *
+     * @param node the current node in the Huffman tree
+     * @param osf the string representation of the current path in the tree
+     */
     private void initEncoderDecoder(Node node, String osf) {
         if (node == null) {
             return;
@@ -95,7 +119,12 @@ public class HoffManCoder {
         initEncoderDecoder(node.right, osf + "1");
     }
 
-    // Encode a string into a BitSet
+    /**
+     * Encodes a string into a {@code BitSet} using the Huffman codes.
+     *
+     * @param source the string to encode
+     * @return a {@code BitSet} representing the encoded data
+     */
     public BitSet encodeBitset(String source) {
         BitSet bitSet = new BitSet();
         int bitIndex = 0;
@@ -113,7 +142,13 @@ public class HoffManCoder {
         return bitSet;
     }
 
-    // Decode a BitSet into a string
+    /**
+     * Decodes a {@code BitSet} back into a string using the Huffman codes.
+     *
+     * @param bitSet the {@code BitSet} to decode
+     * @param length the length of the original string
+     * @return the decoded string
+     */
     public String decodeBitset(BitSet bitSet, int length) {
         StringBuilder key = new StringBuilder();
         StringBuilder ans = new StringBuilder();
@@ -138,7 +173,12 @@ public class HoffManCoder {
         return ans.toString();
     }
 
-    // Encode a string into a Huffman code
+    /**
+     * Encodes a string into a Huffman code.
+     *
+     * @param source the string to encode
+     * @return the encoded Huffman code as a string
+     */
     public String encode(String source) {
         String ans = "";
         for (int i = 0; i < source.length(); i++) {
@@ -148,20 +188,32 @@ public class HoffManCoder {
         return ans;
     }
 
-    // Decode a Huffman code into a string
+    /**
+     * Decodes a Huffman code back into a string.
+     *
+     * @param codedString the Huffman code to decode
+     * @return the decoded string
+     */
     public String decode(String codedString) {
         String key = "";
         String ans = "";
         for (int i = 0; i < codedString.length(); i++) {
             key = key + codedString.charAt(i);
             if (decoder.containsKey(key)) {
-            ans = ans + decoder.get(key);
-          key = "";
+                ans = ans + decoder.get(key);
+                key = "";
+            }
         }
-      }
-      return ans;
+        return ans;
     }
-    // Read the contents of a file into a string
+
+    /**
+     * Reads the contents of a file into a string.
+     *
+     * @param filePath the path to the file
+     * @return the contents of the file as a string
+     * @throws IOException if an error occurs while reading the file
+     */
     public String readFile(String filePath) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -173,14 +225,26 @@ public class HoffManCoder {
         return contentBuilder.toString().trim(); // Remove trailing newline
     }
 
-    // Write encoded data to a binary file
+    /**
+     * Writes encoded data to a binary file.
+     *
+     * @param encodedData the encoded data to write
+     * @param outputPath the path to the output file
+     * @throws IOException if an error occurs while writing to the file
+     */
     public void writeEncodedToFile(String encodedData, String outputPath) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath))) {
             writer.write(encodedData);
         }
     }
 
-    // Read encoded data from a file
+    /**
+     * Reads encoded data from a file.
+     *
+     * @param inputPath the path to the input file
+     * @return the encoded data as a string
+     * @throws IOException if an error occurs while reading the file
+     */
     public String readEncodedFromFile(String inputPath) throws IOException {
         StringBuilder encodedData = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(inputPath))) {
@@ -192,12 +256,16 @@ public class HoffManCoder {
         return encodedData.toString();
     }
 
-    // Write the decoded data to a file
+    /**
+     * Writes the decoded data to a file.
+     *
+     * @param decodedData the decoded data to write
+     * @param outputPath the path to the output file
+     * @throws IOException if an error occurs while writing to the file
+     */
     public void writeDecodedToFile(String decodedData, String outputPath) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath))) {
             writer.write(decodedData);
         }
     }
-    
-    
 }

@@ -1,13 +1,19 @@
 package DSA.leetCode;
 
-
 import java.util.Stack;
+
 /**
- * lengthOfStringAfterRemoval2696
+ * The {@code lengthOfStringAfterRemoval2696} class provides methods to remove specific character pairs
+ * ("AB" and "CD") from a given string and returns the length of the resulting string.
  */
 public class lengthOfStringAfterRemoval2696 {
 
-    //Using StringBuilder
+    /**
+     * Removes occurrences of the pairs "AB" and "CD" from the input string using a {@code StringBuilder}.
+     *
+     * @param s the input string from which pairs will be removed
+     * @return the length of the resulting string after removal
+     */
     public static int removeStringUsingStringBuilder(String s) {
         // Create a new StringBuilder object to build the resulting string
         StringBuilder sb = new StringBuilder();
@@ -37,10 +43,13 @@ public class lengthOfStringAfterRemoval2696 {
         return sb.length();
     }
 
-
-    //using stack
+    /**
+     * Removes occurrences of the pairs "AB" and "CD" from the input string using a stack.
+     *
+     * @param s the input string from which pairs will be removed
+     * @return the length of the resulting string after removal
+     */
     public static int removeStringUsingStack(String s) {
-
         // Create a stack to store characters from the input string
         Stack<Character> stack = new Stack<>();
     
@@ -71,16 +80,28 @@ public class lengthOfStringAfterRemoval2696 {
         // after removing the specified pairs
         return stack.size();
     }
-    //simple iteration
-    public static int removeString(String s){
-       while(s.contains("AB") || s.contains("CD")){
-        s=s.replace("AB", "");
-        s=s.replace("CD", "");
-       }
-       return s.length();
+
+    /**
+     * Removes occurrences of the pairs "AB" and "CD" from the input string using simple iteration.
+     *
+     * @param s the input string from which pairs will be removed
+     * @return the length of the resulting string after removal
+     */
+    public static int removeString(String s) {
+        while (s.contains("AB") || s.contains("CD")) {
+            s = s.replace("AB", "");
+            s = s.replace("CD", "");
+        }
+        return s.length();
     }
+
+    /**
+     * The main method to test the functionality of string removal.
+     *
+     * @param args command line arguments (not used)
+     */
     public static void main(String[] args) {
-        String s="ABCFCDJCDCBADCB";
+        String s = "ABCFCDJCDCBADCB";
         System.out.println(removeStringUsingStringBuilder(s));
     }
 }
