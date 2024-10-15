@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"<Unnamed>","l":"bubbleSort"},{"p":"<Unnamed>","l":"countSort"},{"p":"<Unnamed>","l":"longestSubstringWithEvenVowels"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"DSA.Trees","l":"BinarySearchTree"},{"p":"DSA.Trees","l":"BinaryTree"},{"p":"DSA.Trees","l":"ConstructTreeFromPreOrderAndInOrder"},{"p":"DSA.Trees","l":"TreeMain"}]
