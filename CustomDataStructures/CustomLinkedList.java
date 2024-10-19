@@ -164,10 +164,10 @@ public class CustomLinkedList {
         ListNode after = curr.next; // Node that will be reversed
 
         for (int i = 0; i < right - left; i++) {
-            curr.next = after.next; // Point start to the next node after `then`
-            after.next = prev.next; // Move `then` to the front of the sublist
+            curr.next = after.next; // Point curr to the next node after `after`
+            after.next = prev.next; // Move `after` to the front of the sublist
             prev.next = after; // Reconnect the previous part of the list
-            after = curr.next; // Move `then` to the next node to be reversed
+            after = curr.next; // Move `after` to the next node to be reversed
         }
 
         // Update head if the reversed portion includes the first element
