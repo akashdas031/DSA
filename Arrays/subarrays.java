@@ -15,19 +15,19 @@ public class subarrays {
      * @return a list of lists containing all subarrays of the input array
      */
     public static List<List<Integer>> getSubarray(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        
-        // Generate subarrays
+        List<List<Integer>> res=new ArrayList<>();
         for (int i = 0; i < nums.length; i++) {
-            List<Integer> helper = new ArrayList<>();
-            for (int j = 0; j <= i; j++) { // Changed j < i to j <= i to include the current element
+            List<Integer> helper=new ArrayList<>();
+            for (int j = i; j < nums.length; j++) {
                 helper.add(nums[j]);
+                res.add(new ArrayList<>(helper));
             }
-            res.add(helper);
+        }
+        return res;
         }
         
-        return res;
-    }
+       
+    
 
     /**
      * The main method to demonstrate the functionality of the {@code getSubarray} method.
