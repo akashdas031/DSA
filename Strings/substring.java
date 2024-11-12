@@ -23,7 +23,7 @@ public class substring {
         return res;
     }
     public static void main(String[] args) {
-        String s="akash";
+        String s="abcde";
         List<String> res=getSubstring(s);
        
         System.out.println(res);
