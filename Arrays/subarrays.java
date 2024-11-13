@@ -7,6 +7,8 @@ import java.util.List;
  * The {@code subarrays} class provides methods to generate subarrays from a given array of integers.
  */
 public class subarrays {
+    
+   
     /**
      * Generates all possible subarrays of the given array of integers.
      * A subarray is defined as a contiguous portion of the array.
@@ -36,6 +38,5 @@ public class subarrays {
      */
     public static void main(String[] args) {
         int[] nums = {1, 2, 3, 4}; // Sample input array
-        System.out.println(getSubarray(nums)); // Print the generated subarrays
     }
 }

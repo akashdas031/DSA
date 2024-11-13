@@ -8,7 +8,21 @@ import java.util.HashSet;
  */
 public class substring {
 
-   
+    //using recursion
+    public static void getSubstringRecursion(String s,String current,int index){
+        //take index from 0 and the base case will be when the length will be equals to the length of the String
+          if(index==s.length()){
+            if(!current.isEmpty()){
+                System.out.println(current);
+            }
+            return;
+        }
+        //at the beginning take an empty string as argument and take characters from string from start to end
+        //made recursion by  including the character at index
+        getSubstringRecursion(s, current+s.charAt(index), index+1);
+        //made recursion call by not including character from the string
+        getSubstringRecursion(s, current, index+1);
+    }
     
     //get all possible substring of a string with duplicate
     public static List<String> getSubstring(String s){
@@ -26,7 +40,7 @@ public class substring {
         String s="abcde";
         List<String> res=getSubstring(s);
        
-        System.out.println(res);
+        getSubstringRecursion(s, "", 0);
         
     }
 }
