@@ -4,6 +4,9 @@ import java.util.*;
 
 public class MatrixTraversal {
 
+    
+
+    //reverse diagonal traversal
     public static void revDiagonal(int[][] matrix){
         for (int sum = 0; sum < matrix.length + matrix[0].length - 1; sum++) {
             // Loop through each element in the diagonal

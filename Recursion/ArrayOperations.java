@@ -5,8 +5,111 @@ import java.util.List;
  
 public class ArrayOperations {
 
-    //print all subarrays of an array
+    
 
+    //rotate matrix to 90 degree
+    public static void rotateNinetyDegree(int[][] matrix){
+        for(int i=0;i<matrix[0].length;i++){
+            for(int j=matrix.length-1;j>=0;j--){
+                System.out.print(matrix[j][i]+" ");
+            }
+            System.out.println();
+        }
+    }
+
+    //spiral printing of matrix
+    public static void spiralPrinting(int[][] matrix){
+        int top=0;
+        int buttom=matrix.length-1;
+        System.out.println(buttom);
+        int left=0;
+        int right=matrix[0].length-1;
+        while(top<=buttom && left<=right){
+            for(int i=left;i<=right;i++){
+                System.out.print(matrix[top][i]+" ");
+            }
+            top++;
+            for(int i=top;i<=buttom;i++){
+                System.out.print(matrix[i][right]+" ");
+            }
+            right--;
+            if(top<=buttom){
+                for(int i=right;i>=left;i--){
+                System.out.print(matrix[buttom][i]+" ");
+            }
+            buttom--;
+            }
+            if(left<=right){
+                for(int i=buttom;i>=top;i--){
+                    System.out.print(matrix[i][left]+" ");
+                }
+                left++;
+            }
+        }
+    }
+
+    //reverse diagonal order in top to buttom order
+    public static void printDiagonalRev(int [][]matrix){
+        for(int sum=0;sum<matrix.length+matrix[0].length-1;sum++){
+            for(int col=0;col<=sum;col++){
+                int row=sum-col;
+                if(col<matrix[0].length && row<matrix.length){
+                    System.out.print(matrix[row][col]+" ");
+                }
+            }
+        }
+    }
+
+    //in down to top order
+    public static void printDiagonal(int[][] matrix){
+        for(int sum=0;sum<matrix.length+matrix[0].length+1;sum++){
+            for(int row=0;row<=sum;row++){
+                int col=sum-row;
+                if(row<matrix.length && col<matrix[0].length){
+                    System.out.print(matrix[row][col]+" ");
+                }
+            }
+        }
+    }
+
+    //print 2D matrix Col wise
+    public static void printColWise(int[][] matrix,int row,int col){
+
+        //run untill the last col
+        if(col==matrix[0].length){
+            return;
+        }
+        //when the row reaches at the buttom then start a new row and move col to next col
+        if(row==matrix.length){
+            System.out.println();
+            printColWise(matrix, 0, col+1); 
+        }else{
+            //else continue with the same col and move till last row
+            System.out.print(matrix[row][col]+" ");
+            printColWise(matrix, row+1, col);
+        }
+       
+
+    }
+
+    //print Tables recursion
+    public static void printTables(int n){
+        if(n==0){
+            return;
+        }
+        printTables(n-1);
+        System.out.println("Table for : "+n);
+        for(int i=1;i<=10;i++){
+           
+            System.out.print(n+" * "+i+" = "+ n * i);
+            System.out.println();
+        }
+        System.out.println();
+
+    }
+
+    //print all subarrays of an array
+    
     public static void printAllPossibleSubarrays(int[] nums,int start,int end){
         if(start==nums.length){
             return;
@@ -106,17 +209,22 @@ public class ArrayOperations {
         List<List<Integer>> res=new ArrayList<>();
         List<Integer> helper=new ArrayList<>();
        // printSubarrayRecursion(nums,res,helper,0);
-        printReverse(nums,0);
-    // int[][] matrix={
-    //     {1,2,3,4},
-    //     {5,6,7,8},
-    //     {9,10,11,12}
-    // };
+      //  printReverse(nums,0);
+    int[][] matrix={
+        {1,2,3,4},
+        {5,6,7,8},
+        {9,10,11,12} 
+    };
     // printMatrix(matrix, 0, 0);
-    System.out.println();
-    System.out.println(min(nums, 0, Integer.MAX_VALUE));
-    System.out.println(isSorted(nums, 0));
-    System.out.println(sumOfArrays(nums, 0, 0));
-    printAllPossibleSubarrays(nums, 0, 0);
+    // System.out.println();
+    // System.out.println(min(nums, 0, Integer.MAX_VALUE));
+    // System.out.println(isSorted(nums, 0));
+    // System.out.println(sumOfArrays(nums, 0, 0));
+    // printAllPossibleSubarrays(nums, 0, 0);
+     //printTables(5);
+    //  printColWise(matrix, 0, 0);
+    //  printDiagonalRev(matrix);
+     //spiralPrinting(matrix);
+     rotateNinetyDegree(matrix);
     }
 }
