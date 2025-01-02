@@ -35,6 +35,8 @@ public class maximumSubarraySum {
         }
         return maxLength;
     }
+    //return the subarray with maximum sum
+    
     public static int[] subarrayWithMaxSum(int[] nums){
         int maxSum=Integer.MIN_VALUE;
         int currentSum=0;
@@ -60,6 +62,7 @@ public class maximumSubarraySum {
         }
         return maxSumSubarray;
     }
+    //count of all subarray sum equals to k
     public static int countSubarraysWithGivenSum(int[] nums,int targetSum){
         Map<Integer,Integer> prefixSumMap=new HashMap<>();
         int currentSum=0;
