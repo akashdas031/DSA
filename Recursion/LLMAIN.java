@@ -20,6 +20,11 @@ public class LLMAIN {
         // list.delete(2);
         // list.display();
         // list.reverse();
+        list.insertFirst(10);
+        list.insertFirst(9);
+        list.insertFirst(8);
+        list.insertFirst(7);
+        list.insertFirst(6);
         list.insertFirst(5);
         list.insertFirst(4);
         list.insertFirst(3);
@@ -27,7 +32,7 @@ public class LLMAIN {
         list.insertFirst(1);
         
         list.display();
-        list.reversePart(2, 4);
+        list.reverseAlternativePart(4);
         list.display();
 
     }

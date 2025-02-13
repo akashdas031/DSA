@@ -173,4 +173,73 @@ public class CustomLinkedList {
         // Update head if the reversed portion includes the first element
         head = dummy.next;
     }
+    public ListNode oddEvenList(){
+        return oddEvenList(head);
+    }
+    public ListNode oddEvenList(ListNode head) {
+        if(head==null || head.next==null) return head;
+
+        ListNode odd=head;
+        ListNode even=head.next;
+        ListNode newHead=even;
+
+        while(even !=null && even.next != null){
+            odd.next=even.next;
+            odd=odd.next;
+            even.next=odd.next;
+            even=even.next;
+        }
+        odd.next=newHead;
+        return head;
+    }
+    //reverse k alternative groups in a linked list
+    public ListNode reverseKgroup(int k){
+        return reverseKgroup(head,k);
+    }
+    public ListNode reverseKgroup(ListNode head,int k){
+        if (head == null || k <= 1) return head;
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy, curr = dummy.next;
+        boolean shouldReverse = true;
+
+        while (curr != null) {
+            ListNode start = prev.next;
+            ListNode end = curr;
+            int count = 0;
+
+            // Move end pointer k steps ahead if possible
+            while (count < k && end != null) {
+                end = end.next;
+                count++;
+            }
+
+            if (count == k) {
+                if (shouldReverse) {
+                    prev.next = reverseKelement(start, k);
+                    start.next = end; // Connect the reversed part with the remaining list
+                    prev = start;
+                } else {
+                    prev = start; // Move prev pointer without reversing
+                }
+                shouldReverse = !shouldReverse; // Toggle reversal for alternate groups
+            }
+            curr = end;
+        }
+        return dummy.next;
+    }
+
+    // Function to reverse k nodes in a linked list
+    private static ListNode reverseKelement(ListNode head, int k) {
+        ListNode prev = null, curr = head;
+        while (k-- > 0) {
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
 }
