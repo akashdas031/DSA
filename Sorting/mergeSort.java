@@ -11,7 +11,7 @@ public class mergeSort {
 
         int mid = nums.length / 2;
         int[] left = sort(Arrays.copyOfRange(nums, 0, mid));
-        int[] right = sort(Arrays.copyOfRange(left, mid, nums.length));
+        int[] right = sort(Arrays.copyOfRange(nums, mid, nums.length));
         return merge(left, right);
     }
 
@@ -91,8 +91,8 @@ public class mergeSort {
     }
 
     public static void main(String[] args) {
-        int[] nums = { 5,4,3,2,1 };
-        mergeSortInplace(nums,0,nums.length);
-        System.out.println(Arrays.toString(nums));
+        int[] nums = {8,23,7,16,13,5,9};
+        int[]result=sort(nums);
+        System.out.println(Arrays.toString(result));
     }
 }
