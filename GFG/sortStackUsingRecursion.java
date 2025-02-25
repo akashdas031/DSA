@@ -4,6 +4,22 @@ import java.util.Stack;
 
 public class sortStackUsingRecursion {
 
+    //sort stack
+
+    public static Stack<Integer> sort(Stack<Integer> stack){
+        Stack<Integer> helper=new Stack<>();
+        while(!stack.isEmpty()){
+            int element=stack.pop();
+            while(!helper.isEmpty() && helper.peek()>element){
+                stack.push(helper.pop());
+            }
+            helper.push(element);
+        }
+        return helper;
+
+    }
+
+    //sort stack using recursion
     public static void insertSorted(Stack<Integer> stack, int element) {
         if (stack.isEmpty() || stack.peek() <= element) {
             stack.push(element);
@@ -13,13 +29,12 @@ public class sortStackUsingRecursion {
             stack.push(top);
         }
     }
-
-    public static Stack<Integer> sort(Stack<Integer> stack) {
+    public static Stack<Integer> sortUsingRecursion(Stack<Integer> stack) {
         if (stack.isEmpty()) {
             return stack;
         }
         int top = stack.pop();
-        sort(stack);
+        sortUsingRecursion(stack);
         insertSorted(stack, top);
         return stack;
     }
