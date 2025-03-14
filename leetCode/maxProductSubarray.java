@@ -56,7 +56,6 @@ public class maxProductSubarray {
     
                 result = Math.max(result, maxProduct);
             }
-    
             return result;
         }
         public static int maxProductB(int[] nums) {
