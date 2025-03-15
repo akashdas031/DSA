@@ -26,8 +26,32 @@ public class trapRainWater {
         }
         return totalWater;
     }
+    //optimal Solution
+
+    public static int maxWaterOptimal(int arr[]) {
+        int left=1;
+        int right=arr.length-2;
+        
+        int lMax=arr[left-1];
+        int rMax=arr[right+1];
+        
+        int result=0;
+        
+        while(left<=right){
+            if(rMax<=lMax){
+                result+=Math.max(0,rMax-arr[right]);
+                rMax=Math.max(rMax,arr[right]);
+                right-=1;
+            }else{
+                result+=Math.max(0,lMax-arr[left]);
+                lMax=Math.max(lMax,arr[left]);
+                left+=1;
+            }
+        }
+        return result;
+    }
     public static void main(String[] args) {
         int[] arr={3,0,1,0,4,0,2};
-        System.out.println(maxWater(arr));
+        System.out.println(maxWaterOptimal(arr));
     }
 }
